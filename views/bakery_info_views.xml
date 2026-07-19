@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bakery_info_form" model="ir.ui.view">
+        <field name="name">bakery.info.form</field>
+        <field name="model">bakery.info</field>
+        <field name="arch" type="xml">
+            <form string="Our information" create="false" edit="false" delete="false">
+                    <div class="text-center">
+                        <h1 class="fw-bold">ABOUT US</h1>
+                        <span class="fs-3">
+                            <div>
+                                <p>
+                                    Welcome to our bakery, where every day begins with fresh ingredients, warm ovens, and a passion for creating something delicious.
+                                </p>
+                                <p>
+                                    We believe that the best moments are often shared over freshly baked bread, a beautiful cake, or a favorite pastry.
+                                </p>
+                                <p>
+                                    That’s why we carefully prepare every item with quality ingredients, attention to detail, and a little bit of love.
+                                </p>
+                                <p>
+                                    From everyday treats to special celebrations, our goal is simple: to bring freshness, flavor, and happiness to every customer who walks through our doors.
+                                </p>
+                                <p>
+                                    Thank you for making us a part of your sweetest moments.
+                                </p>
+                            </div>
+                        </span>
+                    </div>
+                    <hr />
+                    <div class="text-center">
+                        <h1 class="fw-bold">CONTACT US</h1>
+                        <div>
+                            <i class="fa fa-envelope"/>
+                            <span class="fs-3">
+                                yramy2514@gmail.com
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa fa-phone"/>
+                            <span class="fs-3">
+                                01112223333
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa fa-truck"/>
+                            <span class="fs-3">
+                                19005
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa fa-building"/>
+                            <span class="fs-3">
+                                Tiba Mall, 21 Anwar El Mofty St.
+                            </span>
+                        </div>
+                    </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_info" model="ir.actions.act_window">
+        <field name="name">Information</field>
+        <field name="res_model">bakery.info</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="bakery_info_form"/>
+        <field name="target">current</field>
+    </record>
+</odoo>
