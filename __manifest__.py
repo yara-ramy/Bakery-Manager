@@ -21,9 +21,18 @@ You can use this module to sell your baked goods and recieve orders from custome
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'wizards/cart_wizard.xml',
         'views/views.xml',
         'views/templates.xml',
+        'views/bakery_item_views.xml',
+        'views/bakery_order_views.xml',
+        'views/cart_views.xml',
+        'views/checkout_views.xml',
+        'views/profile_views.xml',
+        'views/bakery_info_views.xml',
+        'views/menus.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
