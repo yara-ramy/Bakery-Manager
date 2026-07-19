@@ -1,0 +1,37 @@
+<odoo>
+    <record id="bakery_checkout_form_view" model="ir.ui.view">
+        <field name="name">bakery.checkout.form.view</field>
+        <field name="model">bakery.order</field>
+        <field name="arch" type="xml">
+            <form string="Checkout">
+                <sheet>
+                    <h1>Checkout</h1>
+                    <group string="Customer's information">
+                        <field name="customer_id" readonly="1"/>
+                        <field name="phone"/>
+                        <field name="shipping_address"/>
+                    </group>
+                    <group string="Order summary">
+                        <field name="order_line_ids" readonly="1">
+                            <list>
+                                <field name="item_id"/>
+                                <field name="quantity"/>
+                                <field name="unit_price"/>
+                                <field name="subtotal"/>
+                            </list>
+                        </field>
+                        <field name="currency_id"/>
+                        <field name="total_price" readonly="1"/>
+                    </group>
+                    <group string="Payment">
+                        <field name="payment_method"/>
+                    </group>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button name="action_confirm_order" type="object"
+                                class="btn-primary" string="Place order"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,62 @@
+<odoo>
+    <record id="bakery_order_view_list" model="ir.ui.view">
+        <field name="name">bakery.order.list</field>
+        <field name="model">bakery.order</field>
+        <field name="arch" type="xml">
+            <list string="Orders">
+                <field name="customer_id"/>
+                <field name="total_price"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <record id="bakery_order_view_form" model="ir.ui.view">
+        <field name="name">bakery.order.form</field>
+        <field name="model">bakery.order</field>
+        <field name="arch" type="xml">
+            <form string="Order">
+                <sheet>
+                    <div class="d-flex justify-content-end mb-3">
+                        <button name="action_checkout"
+                            string="Checkout"
+                            type="object"
+                            class="btn btn-primary"/>
+                    </div>
+                    <group>
+                        <field name="customer_id"/>
+                        <field name="total_price"/>
+                        <field name="status"/>
+                    </group>
+                    <field name="order_line_ids">
+                        <list editable="bottom">
+                            <field name="item_id"/>
+                            <field name="quantity"/>
+                            <field name="unit_price"/>
+                            <field name="subtotal"/>
+                        </list>
+                    </field>
+                    <group string="Total">
+                        <field name="total_price"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_cart" model="ir.actions.act_window">
+        <field name="name">Cart</field>
+        <field name="res_model">bakery.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_cart_list_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="bakery_order_view_list"/>
+        <field name="act_window_id" ref="action_cart"/>
+    </record>
+    <record id="action_cart_form_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="bakery_order_view_form"/>
+        <field name="act_window_id" ref="action_cart"/>
+    </record>
+</odoo>
