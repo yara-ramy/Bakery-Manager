@@ -1,2 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_my_bakery_my_bakery,my_bakery.my_bakery,model_my_bakery_my_bakery,base.group_user,1,1,1,1
+access_bakery_item,access_bakery_item,model_bakery_item,base.group_user,1,1,1,1
+access_bakery_order,access_bakery_order,model_bakery_order,base.group_user,1,1,1,1
+access_bakery_order_line,access_bakery_order_line,model_bakery_order_line,base.group_user,1,1,1,1
+access_bakery_cart_wizard,access_bakery_cart_wizard,model_bakery_cart_wizard,base.group_user,1,1,1,1
+access_bakery_info,access_bakery_info,model_bakery_info,base.group_user,1,1,1,1
+access_bakery_item_user,bakery.item.user,model_bakery_item,my_bakery.group_bakery_user,1,0,0,0
+access_bakery_item_admin,bakery.item.admin,model_bakery_item,my_bakery.group_bakery_admin,1,1,1,1
+
