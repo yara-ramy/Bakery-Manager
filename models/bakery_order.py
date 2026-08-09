@@ -15,7 +15,7 @@ class BakeryOrder(models.Model):
         ('shipped','Shipped'),
         ('in_transit','In Transit'),
         ('delivered','Delivered')
-    ])
+    ], required=True, default='cart', string='Status')
     currency_id = fields.Many2one('res.currency',string='Currency',
                                   default=lambda self: self.env.ref("base.EGP"))
     order_date = fields.Datetime(string='Order Date', required=True, default=fields.Datetime.now)
@@ -64,3 +64,33 @@ class BakeryOrder(models.Model):
                 "sticky": False,
             }
         }
+
+    def action_cancel(self):
+        self.ensure_one()
+        if self.status == "confirmed":
+            self.status = "cart"
+            return{
+                "type": "ir.actions.client",
+                "tag": "reload",
+            }
+        elif self.status == "cart":
+            self.unlink()
+            return{
+                "type": "ir.actions.act_window",
+                "name": "Cart",
+                "res_model": "bakery.order",
+                "view_mode": "list,form",
+                "target": "current",
+            }
+
+    def cron_change_status(self):
+        orders = self.search([
+            ("status", "in", ["confirmed","in_transit","shipped"])
+        ])
+        for order in orders:
+            if order.status == "confirmed":
+                order.status = "shipped"
+            elif order.status == "shipped":
+                order.status = "in_transit"
+            elif order.status == "in_transit":
+                order.status = "delivered"
