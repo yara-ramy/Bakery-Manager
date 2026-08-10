@@ -4,7 +4,7 @@
         <field name="model">bakery.order</field>
         <field name="arch" type="xml">
             <list string="Cart">
-                <field name="customer_id"/>
+                <field name="name"/>
                 <field name="total_price"/>
                 <field name="status"/>
             </list>
@@ -15,12 +15,6 @@
         <field name="model">bakery.order</field>
         <field name="arch" type="xml">
             <form string="Shopping cart">
-                <header>
-                    <field name="status"
-                           widget="statusbar"
-                           statusbar_visible="cart,confirmed,shipped,in_transit,delivered"
-                           readonly="1"/>
-                </header>
                 <sheet>
                     <div class="d-flex justify-content-end gap-2 mb-3">
                         <button name="action_checkout"
@@ -35,6 +29,7 @@
                                 invisible="status not in ['confirmed','cart']"/>
                     </div>
                     <group>
+                        <field name="name"/>
                         <field name="customer_id"/>
                         <field name="total_price"/>
                         <!--                        <field name="status"/>-->
