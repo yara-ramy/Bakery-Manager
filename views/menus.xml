@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <menuitem id="bakery_root" name="Homepage" sequence="1"/>
+    <menuitem id="bakery_root" name="The Bakery" sequence="1"/>
+<!--    <menuitem id="bakery_homepage" name="Hompage" sequence="0"-->
+<!--              parent="bakery_root" action="action_homepage"/>-->
     <menuitem id="bakery_info" name="Information" sequence="0"
               parent="bakery_root" action="action_info"/>
     <menuitem id="bakery_shop" name="Shop" sequence="1" parent="bakery_root"/>
     <menuitem id="bakery_cart" name="Cart" sequence="2"
               parent="bakery_root" action="action_cart"/>
-    <menuitem id="bakery_profile" name="Profile" sequence="3"
+    <menuitem id="bakery_orders" name="Orders" sequence="3"
+              parent="bakery_root" action="action_orders"/>
+<!--    <menuitem id="bakery_track" name="Track your order" sequence="4"-->
+<!--              parent="bakery_root" action="action_track"/>-->
+    <menuitem id="bakery_profile" name="Profile" sequence="4"
               parent="bakery_root" action="action_profile"/>
     <menuitem id="bakery_all" name="All" sequence="0"
               parent="bakery_shop" action="action_all"/>

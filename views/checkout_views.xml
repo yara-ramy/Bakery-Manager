@@ -25,10 +25,12 @@
                     </group>
                     <group string="Payment">
                         <field name="payment_method"/>
+                        <field name="status" invisible="1"/>
                     </group>
                     <div class="d-flex justify-content-end mt-3">
                         <button name="action_confirm_order" type="object"
-                                class="btn-primary" string="Place order"/>
+                                class="btn-primary" string="Place order"
+                                invisible="status != 'cart'"/>
                     </div>
                 </sheet>
             </form>

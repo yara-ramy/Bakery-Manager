@@ -1,20 +1,20 @@
 <odoo>
-    <record id="bakery_order_view_list" model="ir.ui.view">
+    <record id="cart_view_list" model="ir.ui.view">
         <field name="name">bakery.order.list</field>
         <field name="model">bakery.order</field>
         <field name="arch" type="xml">
-            <list string="Orders">
+            <list string="Cart">
                 <field name="customer_id"/>
                 <field name="total_price"/>
                 <field name="status"/>
             </list>
         </field>
     </record>
-    <record id="bakery_order_view_form" model="ir.ui.view">
+    <record id="cart_view_form" model="ir.ui.view">
         <field name="name">bakery.order.form</field>
         <field name="model">bakery.order</field>
         <field name="arch" type="xml">
-            <form string="Order">
+            <form string="Shopping cart">
                 <header>
                     <field name="status"
                            widget="statusbar"
@@ -58,17 +58,18 @@
         <field name="name">Cart</field>
         <field name="res_model">bakery.order</field>
         <field name="view_mode">list,form</field>
+        <field name="domain">[('status','=','cart')]</field>
     </record>
     <record id="action_cart_list_view" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
         <field name="view_mode">list</field>
-        <field name="view_id" ref="bakery_order_view_list"/>
+        <field name="view_id" ref="cart_view_list"/>
         <field name="act_window_id" ref="action_cart"/>
     </record>
     <record id="action_cart_form_view" model="ir.actions.act_window.view">
         <field name="sequence" eval="2"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="bakery_order_view_form"/>
+        <field name="view_id" ref="cart_view_form"/>
         <field name="act_window_id" ref="action_cart"/>
     </record>
 </odoo>

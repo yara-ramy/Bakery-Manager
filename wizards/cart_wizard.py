@@ -18,7 +18,8 @@ class CartWizard(models.TransientModel):
         self.ensure_one()
         customer = self.env.user.partner_id
         cart = self.env['bakery.order'].search([
-            ("customer_id","=",customer.id)
+            ("customer_id","=",customer.id),
+            ("status", "=", "cart"),
         ], limit=1)
         if not cart:
             cart = self.env['bakery.order'].create({
