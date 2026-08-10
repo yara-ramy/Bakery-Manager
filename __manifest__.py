@@ -23,6 +23,8 @@ You can use this module to sell your baked goods and recieve orders from custome
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        'data/sequence.xml',
+        'data/cron.xml',
         'wizards/cart_wizard.xml',
         'views/views.xml',
         'views/templates.xml',

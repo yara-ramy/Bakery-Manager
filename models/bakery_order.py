@@ -5,6 +5,7 @@ class BakeryOrder(models.Model):
     _name = 'bakery.order'
     _description = 'Bakery Order'
 
+    name = fields.Char(string='Order Number', readonly=True, copy=False)
     customer_id = fields.Many2one('res.partner',string='Customer', required=True)
     order_line_ids = fields.One2many('bakery.order.line', 'order_id', string="Order Lines")
     total_price = fields.Monetary(string='Total Price',currency_field="currency_id"
@@ -26,6 +27,13 @@ class BakeryOrder(models.Model):
         ('cash','Cash on delivery'),
         ('credit','Credit card')
     ], string='Payment Method')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get('name'):
+                vals['name'] = self.env['ir.sequence'].next_by_code('bakery.order')
+        return super().create(vals_list)
 
     @api.depends('order_line_ids.subtotal')
     def _compute_total_price(self):

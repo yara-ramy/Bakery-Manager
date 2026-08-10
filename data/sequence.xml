@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sequence_bakery_order" model="ir.sequence">
+        <field name="name">Bakery order</field>
+        <field name="code">bakery.order</field>
+        <field name="prefix">ORD</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>
