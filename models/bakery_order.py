@@ -96,14 +96,14 @@ class BakeryOrder(models.Model):
                 "target": "current",
             }
 
-    def cron_change_status(self):
-        orders = self.search([
-            ("status", "in", ["confirmed","in_transit","shipped"])
-        ])
-        for order in orders:
-            if order.status == "confirmed":
-                order.status = "shipped"
-            elif order.status == "shipped":
-                order.status = "in_transit"
-            elif order.status == "in_transit":
-                order.status = "delivered"
+    def action_track(self):
+        self.ensure_one()
+        return{
+            "type": "ir.actions.act_window",
+            "name": "Track your order",
+            "res_model": "bakery.order",
+            "res_id": self.id,
+            "view_mode": "form",
+            "view_id": self.env.ref('my_bakery.track_order_form').id,
+            "target": "current",
+        }
