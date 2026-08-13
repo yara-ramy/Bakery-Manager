@@ -43,6 +43,24 @@ class BakeryOrder(models.Model):
         for order_line in self:
             order_line.total_price = sum(order_line.order_line_ids.mapped('subtotal'))
 
+    @staticmethod
+    def _get_cron_interval_seconds(cron):
+        interval = cron.interval_number
+        if cron.interval_type == 'minutes':
+            return interval * 60
+        elif cron.interval_type == 'hours':
+            return interval * 60 * 60
+        elif cron.interval_type == 'days':
+            return interval * 24 * 60 * 60
+        elif cron.interval_type == 'weeks':
+            return interval * 7 * 24 * 60 * 60
+        elif cron.interval_type == 'months':
+            return interval * 30 * 24 * 60 * 60
+        else:
+            return 0
+
+
+
     def action_checkout(self):
         self.ensure_one()
         partner = self.customer_id
@@ -107,3 +125,25 @@ class BakeryOrder(models.Model):
             "view_id": self.env.ref('my_bakery.track_order_form').id,
             "target": "current",
         }
+
+    def cron_change_status(self):
+        cron = self.env.ref('my_bakery.cron_change_status')
+        interval_seconds = self._get_cron_interval_seconds(cron)
+        orders = self.search([
+            ("status", "in", ["confirmed", "shipped", "in_transit"])
+        ])
+        for order in orders:
+            if not order.status_changed_at:
+                continue
+            elapsed_seconds = (
+                    fields.Datetime.now() - order.status_changed_at
+            ).total_seconds()
+            if elapsed_seconds < interval_seconds:
+                continue
+            if order.status == "confirmed":
+                order.status = "shipped"
+            elif order.status == "shipped":
+                order.status = "in_transit"
+            elif order.status == "in_transit":
+                order.status = "delivered"
+            order.status_changed_at = fields.Datetime.now()
