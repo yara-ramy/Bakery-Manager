@@ -20,6 +20,7 @@ class BakeryOrder(models.Model):
     currency_id = fields.Many2one('res.currency',string='Currency',
                                   default=lambda self: self.env.ref("base.EGP"))
     order_date = fields.Datetime(string='Order Date', required=True, default=fields.Datetime.now)
+    status_changed_at = fields.Datetime(string='Status Changed At')
 
     phone = fields.Char(string='Phone Number')
     shipping_address = fields.Text(string='Shipping Address')
@@ -31,6 +32,8 @@ class BakeryOrder(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            if not vals.get('status_changed_at'):
+                vals['status_changed_at'] = fields.Datetime.now()
             if not vals.get('name'):
                 vals['name'] = self.env['ir.sequence'].next_by_code('bakery.order')
         return super().create(vals_list)
@@ -62,6 +65,7 @@ class BakeryOrder(models.Model):
     def action_confirm_order(self):
         self.ensure_one()
         self.status = "confirmed"
+        self.status_changed_at = fields.Datetime.now()
         return{
             "type": "ir.actions.client",
             "tag": "display_notification",
@@ -77,6 +81,7 @@ class BakeryOrder(models.Model):
         self.ensure_one()
         if self.status == "confirmed":
             self.status = "cart"
+            self.status_changed_at = fields.Datetime.now()
             return{
                 "type": "ir.actions.client",
                 "tag": "reload",
