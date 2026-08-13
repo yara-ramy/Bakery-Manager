@@ -10,9 +10,9 @@
               parent="bakery_root" action="action_cart"/>
     <menuitem id="bakery_orders" name="Orders" sequence="3"
               parent="bakery_root" action="action_orders"/>
-<!--    <menuitem id="bakery_track" name="Track your order" sequence="4"-->
-<!--              parent="bakery_root" action="action_track"/>-->
-    <menuitem id="bakery_profile" name="Profile" sequence="4"
+    <menuitem id="bakery_track" name="Track Your Order" sequence="4"
+              parent="bakery_root" action="action_track_order"/>
+    <menuitem id="bakery_profile" name="Profile" sequence="5"
               parent="bakery_root" action="action_profile"/>
     <menuitem id="bakery_all" name="All" sequence="0"
               parent="bakery_shop" action="action_all"/>

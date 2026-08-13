@@ -30,6 +30,7 @@ You can use this module to sell your baked goods and recieve orders from custome
         'views/templates.xml',
         'views/bakery_item_views.xml',
         'views/orders_views.xml',
+        'views/track_order_views.xml',
         'views/cart_views.xml',
         'views/checkout_views.xml',
         'views/profile_views.xml',
