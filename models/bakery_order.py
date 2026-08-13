@@ -20,6 +20,8 @@ class BakeryOrder(models.Model):
     currency_id = fields.Many2one('res.currency',string='Currency',
                                   default=lambda self: self.env.ref("base.EGP"))
     order_date = fields.Datetime(string='Order Date', required=True, default=fields.Datetime.now)
+    time_remaining = fields.Float(string='Time Remaining computations', compute='_compute_time_remaining',default=0)
+    time_remaining_display = fields.Char(string='Time Remaining',compute='_compute_time_remaining')
     status_changed_at = fields.Datetime(string='Status Changed At')
 
     phone = fields.Char(string='Phone Number')
@@ -59,7 +61,21 @@ class BakeryOrder(models.Model):
         else:
             return 0
 
-
+    @api.depends('status_changed_at')
+    def _compute_time_remaining(self):
+        cron = self.env.ref('my_bakery.cron_change_status')
+        for order in self:
+            order.time_remaining_display = "0 hours 0 minutes"
+            order.time_remaining = 0
+            if not order.status_changed_at:
+                continue
+            interval_seconds = self._get_cron_interval_seconds(cron)
+            elapsed_seconds = (fields.Datetime.now() - order.status_changed_at).total_seconds()
+            remaining_seconds = interval_seconds - elapsed_seconds
+            order.time_remaining = max(remaining_seconds / 3600, 0)
+            hours = int(order.time_remaining)
+            minutes = int((order.time_remaining - hours) * 60)
+            order.time_remaining_display = f"{hours} hours and {minutes} minutes"
 
     def action_checkout(self):
         self.ensure_one()
